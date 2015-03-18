@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
 
-namespace Netcurse
+namespace Netcurses
 {
 	public class ConsoleCharacter
 	{

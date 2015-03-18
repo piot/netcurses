@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Diagnostics;
 
-namespace Netcurse
+namespace Netcurses
 {
 	public class ConsoleUpdater
 	{
 		readonly ConsoleWindow screenWindow = new ConsoleWindow (80, 25);
-
-		public ConsoleUpdater ()
-		{
-		}
 
 		public void Update (ConsoleWindow window)
 		{

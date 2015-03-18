@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Netcurse", "Netcurse.csproj", "{D749CF75-960F-4B9B-A6DB-271ACAD4D5F1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Netcurses", "Netcurses.csproj", "{D749CF75-960F-4B9B-A6DB-271ACAD4D5F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

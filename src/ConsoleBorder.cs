@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Netcurse
+namespace Netcurses
 {
 	public static class ConsoleBorder
 	{
