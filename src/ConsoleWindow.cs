@@ -5,33 +5,39 @@ namespace Netcurses
 	public class ConsoleWindow
 	{
 		readonly ConsoleCharacter[] characters;
-		int x;
-		int y;
-		int width;
-		int height;
+		int xPos;
+		int yPos;
+		int _width;
+		int _height;
 
 		public ConsoleColor Foreground { get; set; }
 
 		public ConsoleColor Background { get; set; }
 
+		public int X { get { return xPos; } }
+
+		public int Y { get { return yPos; } }
+
 		public int Height {
-			get { return height; }
+			get { return _height; }
 		}
 
 		public int Width {
-			get { return width; }
+			get { return _width; }
 		}
 
 		public int Length {
-			get { return width * height; }
+			get { return _width * _height; }
 		}
 
 		public ConsoleCharacter[] ConsoleCharacters { get { return characters; } }
 
 		public ConsoleWindow (int width, int height)
 		{
-			this.width = width;
-			this.height = height;
+			this._width = width;
+			this._height = height;
+			Foreground = ConsoleColor.White;
+
 
 			characters = new ConsoleCharacter[width * height];
 			for (var i = 0; i < Length; ++i) {
@@ -40,12 +46,24 @@ namespace Netcurses
 			}
 		}
 
+		public void Copy (ConsoleWindow window, int xOffset, int yOffset)
+		{
+			var minHeight = Math.Min (window._height, _height - yOffset);
+			var minWidth = Math.Min (window._width, _width - xOffset);
+
+			for (var y = 0; y < minHeight; ++y) {
+				for (var x = 0; x < minWidth; ++x) {
+					GetCharacter (x + xOffset, y + yOffset).Set (window.GetCharacter (x, y));
+				}
+			}
+		}
+
 		ConsoleCharacter GetCharacter (int x, int y)
 		{
-			if (x < 0 || x >= width || y < 0 || y >= height) {
+			if (x < 0 || x >= _width || y < 0 || y >= _height) {
 				return null;
 			}
-			var consoleCharacter = characters [y * width + x];
+			var consoleCharacter = characters [y * _width + x];
 			return consoleCharacter;
 		}
 
@@ -56,10 +74,30 @@ namespace Netcurses
 			}
 		}
 
+		public void Fill (int xStart, int yStart, int width, int height)
+		{
+			var left = xStart - width / 2;
+			var top = yStart - height / 2;
+
+
+			left = Math.Max (0, left);
+			top = Math.Max (0, top);
+			left = Math.Min (left, _width - 1);
+			top = Math.Min (top, _height - 1);
+
+			var fillWidth = Math.Min (width, _width - left);
+			var fillHeight = Math.Min (height, _height - top);
+			for (var x = 0; x < fillWidth; ++x) {
+				for (var y = 0; y < fillHeight; ++y) {
+					GetCharacter (x + left, y + top).Clear (Foreground, Background);
+				}
+			}
+		}
+
 		public void Move (int x, int y)
 		{
-			this.x = x;
-			this.y = y;
+			this.xPos = x;
+			this.yPos = y;
 		}
 
 		public void SetCharacter (int x, int y, char ch)
@@ -76,8 +114,8 @@ namespace Netcurses
 
 		public void AddCharacter (char ch)
 		{
-			SetCharacter (x, y, ch);
-			x++;
+			SetCharacter (xPos, yPos, ch);
+			xPos++;
 		}
 
 		public void AddString (string s)
@@ -98,9 +136,29 @@ namespace Netcurses
 		{
 			for (var i = 0; i < length; ++i) {
 				AddCharacter (c);
-				x--;
-				y++;
+				xPos--;
+				yPos++;
 			}
+		}
+
+		public void ClearLine ()
+		{
+			for (var x = X; x < Width; ++x) {
+
+				GetCharacter (x, Y).Clear (Foreground, Background);
+			}
+		}
+
+		public void ScrollUp ()
+		{
+			for (var y = 0; y < Height - 1; ++y) {
+				for (var x = 0; x < Width; ++x) {
+					GetCharacter (x, y).Set (GetCharacter (x, y + 1));
+				}
+			}
+
+			Move (0, Height - 1);
+			ClearLine ();
 		}
 	}
 }

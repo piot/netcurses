@@ -39,6 +39,7 @@
     <Compile Include="ConsoleCharacter.cs" />
     <Compile Include="ConsoleUpdater.cs" />
     <Compile Include="ConsoleBorder.cs" />
+    <Compile Include="ConsoleScrollWindow.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
