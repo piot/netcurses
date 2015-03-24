@@ -37,11 +37,15 @@ namespace Netcurses
 			this._width = width;
 			this._height = height;
 			Foreground = ConsoleColor.White;
+			Background = ConsoleColor.Cyan;
 
 
 			characters = new ConsoleCharacter[width * height];
 			for (var i = 0; i < Length; ++i) {
-				characters [i] = new ConsoleCharacter ();
+				characters [i] = new ConsoleCharacter {
+					Foreground = ConsoleColor.White,
+					Background = ConsoleColor.Cyan,
+				};
 
 			}
 		}
@@ -53,24 +57,31 @@ namespace Netcurses
 
 			for (var y = 0; y < minHeight; ++y) {
 				for (var x = 0; x < minWidth; ++x) {
-					GetCharacter (x + xOffset, y + yOffset).Set (window.GetCharacter (x, y));
+					var sourceIndex = window.GetCharacterIndex (x, y);
+					if (sourceIndex < 0) {
+						continue;
+					}
+					var targetIndex = GetCharacterIndex (x + xOffset, y + yOffset);
+					if (targetIndex < 0) {
+						continue;
+					}
+					characters [targetIndex] = window.characters [sourceIndex];
 				}
 			}
 		}
 
-		ConsoleCharacter GetCharacter (int x, int y)
+		public int GetCharacterIndex (int x, int y)
 		{
 			if (x < 0 || x >= _width || y < 0 || y >= _height) {
-				return null;
+				return -1;
 			}
-			var consoleCharacter = characters [y * _width + x];
-			return consoleCharacter;
+			return y * _width + x;
 		}
 
 		public void Clear ()
 		{
-			foreach (var ch in characters) {
-				ch.Clear (Foreground, Background);
+			for (var i = 0; i < characters.Length; ++i) {
+				characters [i] = new ConsoleCharacter () { Foreground = Foreground, Background = Background, Character = ' ' };
 			}
 		}
 
@@ -89,7 +100,11 @@ namespace Netcurses
 			var fillHeight = Math.Min (height, _height - top);
 			for (var x = 0; x < fillWidth; ++x) {
 				for (var y = 0; y < fillHeight; ++y) {
-					GetCharacter (x + left, y + top).Clear (Foreground, Background);
+					characters [GetCharacterIndex (x + left, y + top)] = new ConsoleCharacter () {
+						Foreground = Foreground,
+						Background = Background,
+						Character = ' '
+					};
 				}
 			}
 		}
@@ -102,13 +117,13 @@ namespace Netcurses
 
 		public void SetCharacter (int x, int y, char ch)
 		{
-			var character = GetCharacter (x, y);
-			if (character == null) {
+			var characterIndex = GetCharacterIndex (x, y);
+			if (characterIndex < 0) {
 				return;
 			}
-			character.Character = ch;
-			character.Foreground = Foreground;
-			character.Background = Background;
+			characters [characterIndex].Character = ch;
+			characters [characterIndex].Foreground = Foreground;
+			characters [characterIndex].Background = Background;
 		}
 
 
@@ -144,8 +159,11 @@ namespace Netcurses
 		public void ClearLine ()
 		{
 			for (var x = X; x < Width; ++x) {
-
-				GetCharacter (x, Y).Clear (Foreground, Background);
+				characters [GetCharacterIndex (x, Y)] = new ConsoleCharacter () {
+					Foreground = Foreground,
+					Background = Background,
+					Character = ' '
+				};
 			}
 		}
 
@@ -153,7 +171,7 @@ namespace Netcurses
 		{
 			for (var y = 0; y < Height - 1; ++y) {
 				for (var x = 0; x < Width; ++x) {
-					GetCharacter (x, y).Set (GetCharacter (x, y + 1));
+					characters [GetCharacterIndex (x, y)] = characters [GetCharacterIndex (x, y + 1)];
 				}
 			}
 

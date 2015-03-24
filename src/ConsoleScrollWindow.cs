@@ -13,7 +13,7 @@ namespace Netcurses
 			window = new ConsoleWindow (width, height);
 		}
 
-		void Newline()
+		void Newline ()
 		{
 			var y = window.Y;
 			if (y == window.Height - 1) {
@@ -25,7 +25,7 @@ namespace Netcurses
 			window.Move (0, y);
 		}
 
-		public void AddStringEx(string s)
+		public void AddStringEx (string s)
 		{
 			for (var i = 0; i < s.Length; ++i) {
 				var ch = s [i];
@@ -48,7 +48,7 @@ namespace Netcurses
 			}
 			var first = s.Substring (0, clamp);
 			var second = s.Substring (clamp);
-			AddStringEx(first);
+			AddStringEx (first);
 			if (!clamped) {
 				return;
 			}

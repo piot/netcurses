@@ -6,26 +6,40 @@ namespace Netcurses
 	{
 		readonly ConsoleWindow screenWindow = new ConsoleWindow (80, 25);
 
+		void SetCursorPosition (int x, int y)
+		{
+			Console.SetCursorPosition (x, y);
+		}
+
+		void SetCharacterAndColor (ConsoleCharacter targetChar, ConsoleCharacter sourceChar)
+		{
+			Console.BackgroundColor = sourceChar.Background;
+			Console.ForegroundColor = sourceChar.Foreground;
+			Console.Write (sourceChar.Character);
+		}
+
 		public void Update (ConsoleWindow window)
 		{
 			Console.CursorVisible = false;
 			int lastX = -1;
 			int lastY = -1;
+
+
 			var chars = window.ConsoleCharacters;
 			for (var y = 0; y < window.Height; ++y) {
 				for (var x = 0; x < window.Width; ++x) {
-					var sourceChar = chars [y * window.Width + x];
-					var targetChar = screenWindow.ConsoleCharacters [y * screenWindow.Width + x];
+					var sourceIndex = window.GetCharacterIndex (x, y);
+					var sourceChar = window.ConsoleCharacters [sourceIndex];
+					var targetIndex = screenWindow.GetCharacterIndex (x, y);
+					var targetChar = screenWindow.ConsoleCharacters [targetIndex];
 					if (!sourceChar.IsSame (targetChar)) {
 						if (x != lastX || y != lastY) {
-							Console.SetCursorPosition (x, y);
+							SetCursorPosition (x, y);
 						}
-						Console.BackgroundColor = sourceChar.Background;
-						Console.ForegroundColor = sourceChar.Foreground;
-						Console.Write (sourceChar.Character);
+						SetCharacterAndColor (targetChar, sourceChar);
 						lastX = x + 1;
 						lastY = y;
-						targetChar.Set (sourceChar);
+						screenWindow.ConsoleCharacters [targetIndex] = sourceChar;
 					}
 				}
 			}

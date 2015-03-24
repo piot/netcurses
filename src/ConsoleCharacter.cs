@@ -2,27 +2,13 @@
 
 namespace Netcurses
 {
-	public class ConsoleCharacter
+	public struct  ConsoleCharacter
 	{
-		public char Character { get; set; }
+		public char Character;
 
-		public ConsoleColor Foreground { get; set; }
+		public ConsoleColor Foreground;
 
-		public ConsoleColor Background { get; set; }
-
-		public void Set (ConsoleCharacter ch)
-		{
-			Character = ch.Character;
-			Foreground = ch.Foreground;
-			Background = ch.Background;
-		}
-
-		public void Clear (ConsoleColor foreground, ConsoleColor background)
-		{
-			Character = ' ';
-			Foreground = foreground;
-			Background = background;
-		}
+		public ConsoleColor Background;
 
 		public bool IsSame (ConsoleCharacter ch)
 		{

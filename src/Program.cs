@@ -19,7 +19,7 @@ namespace Example
 			const int diff = 40;
 
 			for (var anim = 0; anim < 100; ++anim) {
-				win.Background = ConsoleColor.Black;
+				win.Background = ConsoleColor.Blue ;
 				win.Clear ();
 				var x = (int)(Math.Sin (anim / 10.0f) * diff + diff);
 
@@ -42,10 +42,9 @@ namespace Example
 
 				}
 				scrolly.AddString ("This is a test", true);
-
 				win.Move (x, 10);
 				win.AddString ("Hello world!");
-				win.Copy (scrolly.Window, x / 4, x / 10);
+				win.Copy (scrolly.Window, 40 - x / 6, 10 - x / 3);
 				screen.Update (win);
 				Thread.Sleep (50);
 			}
