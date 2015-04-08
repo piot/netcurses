@@ -4,25 +4,25 @@ namespace Netcurses
 {
 	public class ConsoleScrollWindow
 	{
-		readonly ConsoleWindow window;
+		readonly ConsoleArea window;
 
-		public ConsoleWindow Window { get { return window; } }
+		public ConsoleArea Window { get { return window; } }
 
-		public ConsoleScrollWindow (int width, int height)
+		public ConsoleScrollWindow (Size size)
 		{
-			window = new ConsoleWindow (width, height);
+			window = new ConsoleArea (size);
 		}
 
 		void Newline ()
 		{
-			var y = window.Y;
-			if (y == window.Height - 1) {
+			var y = window.CursorPosition.Y;
+			if (y == window.Size.Height - 1) {
 				window.ScrollUp ();
 			} else {
 				y += 1;
 			}
 
-			window.Move (0, y);
+			window.Move (new Position(0, y));
 		}
 
 		public void AddStringEx (string s)
@@ -42,8 +42,8 @@ namespace Netcurses
 		{
 			var clamp = s.Length;
 			var clamped = false; 
-			if (window.X + s.Length >= window.Width) {
-				clamp = window.Width - window.X;
+			if (window.CursorPosition.X + s.Length >= window.Size.Width) {
+				clamp = window.Size.Width - window.CursorPosition.X;
 				clamped = true;
 			}
 			var first = s.Substring (0, clamp);

@@ -4,7 +4,7 @@ namespace Netcurses
 {
 	public struct  ConsoleCharacter
 	{
-		public char Character;
+		public int Character;
 
 		public ConsoleColor Foreground;
 

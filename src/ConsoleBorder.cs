@@ -4,7 +4,7 @@ namespace Netcurses
 {
 	public static class ConsoleBorder
 	{
-		public static void Draw (ConsoleWindow window, int x, int y, int width, int height)
+		public static void Draw (ConsoleArea window, int x, int y, int width, int height)
 		{
 			if (width < 2 || height < 2) {
 				return;
@@ -14,20 +14,20 @@ namespace Netcurses
 			var top = y - height / 2;
 			var bottom = top + height - 1;
 
-			window.Move (left, top);
-			window.AddCharacter ('┌');
-			window.RepeatCharacter ('─', width - 2);
-			window.AddCharacter ('┐');
+			window.Move (new Position(left, top));
+			window.AddCharacter (BoxDrawing.ULCORNER);
+			window.RepeatCharacter (BoxDrawing.HLINE, width - 2);
+			window.AddCharacter (BoxDrawing.URCORNER);
 
-			window.Move (left, top + 1);
-			window.RepeatCharacterVertical ('│', height - 2);
-			window.Move (right, top + 1);
-			window.RepeatCharacterVertical ('│', height - 2);
+			window.Move (new Position(left, top + 1));
+			window.RepeatCharacterVertical (BoxDrawing.VLINE, height - 2);
+			window.Move (new Position(right, top + 1));
+			window.RepeatCharacterVertical (BoxDrawing.VLINE, height - 2);
 
-			window.Move (left, bottom);
-			window.AddCharacter ('└');
-			window.RepeatCharacter ('─', width - 2);
-			window.AddCharacter ('┘');
+			window.Move (new Position(left, bottom));
+			window.AddCharacter (BoxDrawing.LLCORNER);
+			window.RepeatCharacter (BoxDrawing.HLINE, width - 2);
+			window.AddCharacter (BoxDrawing.LRCORNER);
 
 		}
 	}

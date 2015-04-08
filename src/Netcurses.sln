@@ -3,15 +3,32 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Netcurses", "Netcurses.csproj", "{D749CF75-960F-4B9B-A6DB-271ACAD4D5F1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "another", "another\another.csproj", "{9557B045-BE8B-4A45-9616-2A05EEA88BD2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
 		Release|x86 = Release|x86
+		Debug|Net45 = Debug|Net45
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9557B045-BE8B-4A45-9616-2A05EEA88BD2}.Debug|Net45.ActiveCfg = Debug|Net45
+		{9557B045-BE8B-4A45-9616-2A05EEA88BD2}.Debug|Net45.Build.0 = Debug|Net45
+		{9557B045-BE8B-4A45-9616-2A05EEA88BD2}.Debug|x86.ActiveCfg = Debug|x86
+		{9557B045-BE8B-4A45-9616-2A05EEA88BD2}.Debug|x86.Build.0 = Debug|x86
+		{9557B045-BE8B-4A45-9616-2A05EEA88BD2}.Release|x86.ActiveCfg = Release|x86
+		{9557B045-BE8B-4A45-9616-2A05EEA88BD2}.Release|x86.Build.0 = Release|x86
+		{D749CF75-960F-4B9B-A6DB-271ACAD4D5F1}.Debug|Net45.ActiveCfg = Debug|Net45
+		{D749CF75-960F-4B9B-A6DB-271ACAD4D5F1}.Debug|Net45.Build.0 = Debug|Net45
 		{D749CF75-960F-4B9B-A6DB-271ACAD4D5F1}.Debug|x86.ActiveCfg = Debug|x86
 		{D749CF75-960F-4B9B-A6DB-271ACAD4D5F1}.Debug|x86.Build.0 = Debug|x86
 		{D749CF75-960F-4B9B-A6DB-271ACAD4D5F1}.Release|x86.ActiveCfg = Release|x86
 		{D749CF75-960F-4B9B-A6DB-271ACAD4D5F1}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		Policies = $0
+		$0.DotNetNamingPolicy = $1
+		$1.DirectoryNamespaceAssociation = None
+		$1.ResourceNamePolicy = FileFormatDefault
 	EndGlobalSection
 EndGlobal
