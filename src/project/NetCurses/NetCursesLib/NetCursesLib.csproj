@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <BaseDirectory>..\..\..\lib</BaseDirectory>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\..\lib\ConsoleArea.cs" />
+    <Compile Include="..\..\..\lib\ConsoleBorder.cs" />
+    <Compile Include="..\..\..\lib\ConsoleCharacter.cs" />
+    <Compile Include="..\..\..\lib\ConsoleDriver.cs" />
+    <Compile Include="..\..\..\lib\ConsoleInputField.cs" />
+    <Compile Include="..\..\..\lib\ConsoleScrollWindow.cs" />
+    <Compile Include="..\..\..\lib\ConsoleText.cs" />
+    <Compile Include="..\..\..\lib\ConsoleUpdater.cs" />
+    <Compile Include="..\..\..\lib\ConsoleWindow.cs" />
+    <Compile Include="..\..\..\lib\CursesDriver.cs" />
+    <Compile Include="..\..\..\lib\IDriver.cs" />
+    <Compile Include="..\..\..\lib\Position.cs" />
+    <Compile Include="..\..\..\lib\Rectangle.cs" />
+    <Compile Include="..\..\..\lib\Size.cs" />
+  </ItemGroup>
+</Project>

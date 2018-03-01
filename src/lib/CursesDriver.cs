@@ -1,3 +1,28 @@
+/*
+
+MIT License
+
+Copyright (c) 2015 Peter Bjorklund
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+*/
 ﻿using System;
 using System.Runtime.InteropServices;
 
@@ -47,28 +72,34 @@ namespace Netcurses
 		[DllImport (CURSES_DLL)]
 		extern public static bool can_change_color ();
 
+		[DllImport(CURSES_DLL)]
+		extern public static int getch();
+
+		[DllImport(CURSES_DLL)]
+		extern public static void timeout(int v);
+
 		public CursesDriver ()
 		{
 			initscr ();
-			if (!has_colors ()) {
+			timeout(0);
+
+			if (!has_colors ())
+			{
 				throw new Exception ("No colors man!");
 			}
-			if (start_color () != 0) {
+
+			if (start_color () != 0)
+			{
 				throw new Exception ("No start color man!");
 			}
 
-			if (!can_change_color ()) {
+			if (!can_change_color ())
+			{
 				throw new Exception ("Can not change color");
 			}
 			use_default_colors ();
 
-
-			for (ushort fg = 0; fg < 8; ++fg) {
-				for (ushort bg = 0; bg < 8; ++bg) {
-					ushort index = (ushort)((fg * 8 + bg) + 1);
-					init_pair (index, fg, bg);
-				}
-			}
+			
 		}
 
 		public void Move (Position position)
@@ -78,10 +109,6 @@ namespace Netcurses
 
 		public void Add (ConsoleColor foreground, ConsoleColor background, int ch)
 		{
-			ushort colorIndex = (ushort)(((int)foreground * 8 + (int)background) + 1);
-			int attribute = (colorIndex * 256);
-
-			attrset (2 + attribute);
 			addch (ch);
 		}
 
@@ -90,10 +117,23 @@ namespace Netcurses
 			refresh ();
 		}
 
+		ConsoleKey KeyToKey(int ch)
+		{
+			switch (ch)
+			{
+			case 0x102:
+				return ConsoleKey.DownArrow;
+			}
+
+			return ConsoleKey.NoName;
+		}
+
 		public ConsoleKeyInfo ReadKey ()
 		{
-			throw new NotImplementedException ();
+			int ch = getch();
+			var info = new ConsoleKeyInfo(' ', KeyToKey(ch), false, false, false); //throw new NotImplementedException ();
+
+			return info;
 		}
 	}
 }
-
