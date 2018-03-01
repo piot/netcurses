@@ -23,7 +23,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 */
-﻿using System;
+﻿ using System;
 
 namespace Netcurses
 {
@@ -45,6 +45,8 @@ namespace Netcurses
 		void Add (ConsoleColor foreground, ConsoleColor background, int ch);
 
 		void Refresh ();
+
+		void Close();
 
 		ConsoleKeyInfo ReadKey();
 	}

@@ -23,7 +23,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 */
-﻿using System;
+﻿ using System;
 using System.Runtime.InteropServices;
 
 namespace Netcurses
@@ -98,8 +98,6 @@ namespace Netcurses
 				throw new Exception ("Can not change color");
 			}
 			use_default_colors ();
-
-			
 		}
 
 		public void Move (Position position)
@@ -134,6 +132,10 @@ namespace Netcurses
 			var info = new ConsoleKeyInfo(' ', KeyToKey(ch), false, false, false); //throw new NotImplementedException ();
 
 			return info;
+		}
+
+		public void Close()
+		{
 		}
 	}
 }

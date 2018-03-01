@@ -23,7 +23,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 */
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 
 namespace Netcurses
@@ -59,6 +59,13 @@ namespace Netcurses
 			}
 
 			Console.Write ((char)ch);
+		}
+
+		public void Close()
+		{
+			Console.CursorVisible = true;
+			Console.ResetColor();
+			Console.Clear();
 		}
 
 		public void Refresh ()
