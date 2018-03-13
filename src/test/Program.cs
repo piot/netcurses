@@ -23,7 +23,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 */
-﻿using System;
+﻿ using System;
 using Netcurses;
 using System.Threading.Tasks;
 using System.Threading;
@@ -38,8 +38,8 @@ namespace Example
 			const int HEIGHT = 30;
 			var defaultSize = new Size (WIDTH, HEIGHT);
 			var win = new ConsoleArea (defaultSize);
-			// var driver = new ConsoleDriver ();
-			var driver = new CursesDriver ();
+			//var driver = new ConsoleDriver ();
+			var driver = new AnsiDriver ();
 			var screen = new ConsoleUpdater (driver, defaultSize);
 			var scrolly = new ConsoleScrollWindow (new Size (WIDTH - 2, 10));
 

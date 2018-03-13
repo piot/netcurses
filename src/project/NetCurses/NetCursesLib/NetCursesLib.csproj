@@ -20,5 +20,6 @@
     <Compile Include="..\..\..\lib\Position.cs" />
     <Compile Include="..\..\..\lib\Rectangle.cs" />
     <Compile Include="..\..\..\lib\Size.cs" />
+    <Compile Include="..\..\..\lib\AnsiDriver.cs" />
   </ItemGroup>
 </Project>
