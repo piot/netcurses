@@ -1,0 +1,9 @@
+language: csharp
+mono: none
+dotnet: 2.0.0
+
+install:
+  - dotnet restore src/project/NetCurses/NetCurses.sln
+
+script:
+  - dotnet build src/project/NetCurses/NetCurses.sln
