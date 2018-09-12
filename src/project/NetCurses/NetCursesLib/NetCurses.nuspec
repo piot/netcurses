@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>NetCurses</id>
+    <version>1.0.0</version>
+    <authors>Piot</authors>
+    <owners>Piot</owners>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/Piot/netcurses</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Curses-like</description>
+    <releaseNotes>Initial import</releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>ncurses</tags>
+    <dependencies>
+    </dependencies>
+  </metadata>
+</package>
